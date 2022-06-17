@@ -26,13 +26,7 @@ function exist(board: string[][], word: string): boolean {
       if (board[yIndex][xIndex] === word[0]) {
         // console.log('找到之前', JSON.stringify(recordList))
         recordList[yIndex][xIndex] = false
-        console.log(
-          '找到首字母',
-          yIndex,
-          xIndex,
-          word[0],
-          JSON.stringify(recordList)
-        )
+
         // 剪枝策略
         if (word.length === 1) return true
         if (aroundCheck(yIndex, xIndex, 1)) return true
@@ -48,24 +42,13 @@ function exist(board: string[][], word: string): boolean {
       const nextX = x + coords[1]
       //  在容器范围内
       if (!isInArea(nextY, nextX)) {
-        console.log('不在容器内', nextY, nextX)
         continue
       }
       if (!recordList[nextY][nextX]) {
-        console.log('使用过了', recordList[nextY][nextX], nextY, nextX)
         continue
       }
-      console.log(
-        '当前字母比对',
-        nextIndex,
-        nextY,
-        nextX,
-        board[nextY][nextX],
-        word[nextIndex]
-      )
 
       if (board[nextY][nextX] === word[nextIndex]) {
-        console.log('匹配成功前往下一个匹配点', word[nextIndex])
         recordList[nextY][nextX] = false
         // 如果全部匹配则返回true
         if (nextIndex >= word.length - 1) return true
@@ -82,6 +65,5 @@ function exist(board: string[][], word: string): boolean {
     return y >= 0 && y < m && x >= 0 && x < n
   }
 
-  console.log('失败')
   return false
 }
